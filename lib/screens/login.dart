@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ohm_card/models/api_error.dart';
-import 'package:ohm_card/models/api_response.dart';
-import 'package:ohm_card/models/user.dart';
+import 'package:ohm_card/models/models.dart';
 import 'package:ohm_card/service/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,6 +12,8 @@ class _LoginPageState extends State<LoginPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
 
+  late SharedPreferences pref;
+
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -22,14 +22,6 @@ class _LoginPageState extends State<LoginPage> {
     _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
-  }
-
-  late Future<User> futureUser;
-
-  @override
-  void initState() {
-    super.initState();
-    //futureUser = loginUser(_usernameController.text, _passwordController.text);
   }
 
   var _logoSection = Padding(
@@ -70,6 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                   labelText: 'Username ',
                 ),
                 keyboardType: TextInputType.text,
+                //onSaved: (value) => loginRequestModel.username = value!,
                 validator: (value) =>
                     (value!.isEmpty) ? "Please enter your username" : null,
               ),
@@ -85,6 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                   labelText: 'Password',
                 ),
                 obscureText: true,
+                //onSaved: (value) => loginRequestModel.userpassword = value!,
                 validator: (value) =>
                     (value!.isEmpty) ? "Please enter your password" : null,
               ),
@@ -117,11 +111,22 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: ElevatedButton(
-                onPressed: () {
-                  futureUser = loginUser(
+                onPressed: () async {
+                  var loginRequestModel = new LoginRequestModel(
                       _usernameController.text, _passwordController.text);
-                  //print(futureUser);
-                  Navigator.pushNamed(context, '/page');
+                  var api = new Api();
+                  api.loginUser(loginRequestModel).then((value) {
+                    if (value.token.isNotEmpty) {
+                      print("Login successful");
+                      // _setStringValue("token", value.token);
+                      // _setStringValue("username", value.username);
+                      // _setStringValue("firstname", value.firstname);
+                      // _setStringValue("surname", value.surname);
+                      // _setStringValue("birthday", value.birthday);
+                      // _setStringValue("email", value.email);
+                      Navigator.pushNamed(context, '/page');
+                    }
+                  });
                 },
                 child: const Text('Login'),
               ),
@@ -131,41 +136,24 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
+  // _setStringValue(String key, String value) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setString(key, value);
+  // }
+
+  // FutureBuilder<User> buildFutureBuilder() {
+  //   return FutureBuilder<User>(
+  //     future: _futureUser,
+  //     builder: (context, snapshot) {
+  //       if (snapshot.hasData) {
+  //         return Text(snapshot.data!.username);
+  //       } else if (snapshot.hasError) {
+  //         return Text('${snapshot.error}');
+  //       }
+  //       return const CircularProgressIndicator();
+  //     },
+  //   );
+  // }
+
 }
-
-// void _saveAndRedirectToHome() async {
-//     SharedPreferences prefs = await SharedPreferences.getInstance();
-//     await prefs.setString("username", (_apiResponse.data as User).username);
-//     Navigator.pushNamedAndRemoveUntil(
-//         context, '/page', ModalRoute.withName('/page'),
-//         arguments: (_apiResponse.data as User));
-//   }
-
-// if (_formKey.currentState!.validate()) {
-//                     setState(() {
-//                       _futureUser = loginUser(
-//                           _usernameController.text, _passwordController.text);
-//                       Navigator.pushNamed(context, '/page');
-//                     });
-
-    // FutureBuilder<User> buildFutureBuilder() {
-    //   return FutureBuilder<User>(
-    //     future: _futureUser,
-    //     builder: (context, snapshot) {
-    //       if (snapshot.hasData) {
-    //         return Text(snapshot.data!.username);
-    //       } else if (snapshot.hasError) {
-    //         return Text('${snapshot.error}');
-    //       }
-    //       return const CircularProgressIndicator();
-    //     },
-    //   );
-    // }
-
-    // Future<User> _loginHandler() async {
-    //   var user =
-    //       await loginUser(_usernameController.text, _passwordController.text);
-    //   return user;
-    // }
-//   }
-// }

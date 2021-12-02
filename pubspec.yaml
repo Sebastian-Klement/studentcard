@@ -30,7 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   shared_preferences: ^2.0.7
   infinity_page_view: ^1.0.0
-#  barcode: ^2.1.0
+  flutter_secure_storage: ^3.3.1+1
   syncfusion_flutter_barcodes: ^19.3.48
 
 dev_dependencies:

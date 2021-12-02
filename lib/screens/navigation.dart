@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ohm_card/screens/verify.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'bibliothek.dart';
 import 'home.dart';
@@ -19,7 +17,6 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
     HomePage(),
     MensaPage(),
     BibliothekPage(),
-    VerifyPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -29,8 +26,6 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
   }
 
   void _handleLogout() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove("username");
     Navigator.pushNamed(context, '/login');
   }
 
@@ -39,8 +34,6 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("OHMcard"),
-        // color noch in ohmfarben anpassen
-        //backgroundColor: Color(0x2863Af),
         centerTitle: true,
         automaticallyImplyLeading: false,
         actions: <Widget>[
@@ -73,10 +66,6 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.food_bank_outlined),
             label: 'Bibliothek',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.check),
-            label: 'Verifizieren',
           ),
         ],
         currentIndex: _selectedIndex,

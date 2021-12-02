@@ -12,6 +12,7 @@ class BibliothekPageState extends State<BibliothekPage> {
     return Scaffold(
       body: Center(
         child: Container(
+          //  //Text("valuelibraryId."),
           height: 200,
           child: SfBarcodeGenerator(
             value: '05601205784',
