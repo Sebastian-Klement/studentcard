@@ -18,7 +18,16 @@ class _HomePageState extends State<HomePage> {
   // String firstname = "";
   // String surname = "";
 
-  LoginResponseModel? user;
+  LoginResponseModel user = new LoginResponseModel(
+    0,
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  );
 
   @override
   void initState() {
@@ -34,13 +43,17 @@ class _HomePageState extends State<HomePage> {
         child: Center(
           child: Column(
             children: <Widget>[
-              // Image des Studi von db über ohm server fetchen
-              Image.asset(
-                "images/ohm_logo.png",
-                fit: BoxFit.fill,
+              //Image des Studi von db über ohm server fetchen
+              Padding(
+                padding: EdgeInsets.all(30.0),
+                child: Image.asset(
+                  "assets/images/ohm_logo.png",
+                  fit: BoxFit.fill,
+                ),
               ),
+
               Image.asset(
-                "images/bear.png",
+                "assets/images/bear.png",
                 fit: BoxFit.fill,
               ),
               Padding(
@@ -49,11 +62,11 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text("Name: " + user!.firstname + " " + user!.surname),
-                    Text("Birthday: " + user!.birthday),
-                    Text("StudentId: " + user!.studentId.toString()),
-                    Text("Gültig von value.date bis value.date"),
-                    Text("Token: " + user!.token)
+                    Text("Name: " + user.firstname + " " + user.surname),
+                    Text("Birthday: " + user.birthday),
+                    Text("StudentId: " + user.studentId.toString()),
+                    Text("Gültig von 01.10.2021 bis 14.03.2022"),
+                    //Text("Token: " + user.token)
                   ],
                 ),
               ),
@@ -62,9 +75,10 @@ class _HomePageState extends State<HomePage> {
                 child: Container(
                   height: 200,
                   child: SfBarcodeGenerator(
-                    value: 'Hallo Welt',
+                    value:
+                        'Der Studierendenausweis ist validiert. Er gültig von 01.10.2021 bis 14.03.2022',
                     symbology: QRCode(),
-                    showValue: true,
+                    showValue: false,
                   ),
                 ),
               )

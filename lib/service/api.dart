@@ -1,11 +1,10 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ohm_card/models/models.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:shared_preferences/shared_preferences.dart';
-
 class Api {
-  final String _baseUrl = "http://localhost:3000/";
+  final String _baseUrl = "http://192.168.178.21:3000/";
   Future<LoginResponseModel> loginUser(
       LoginRequestModel loginResponseModel) async {
     var _url = Uri.parse("${_baseUrl}login");
@@ -28,24 +27,39 @@ class Api {
 
       return LoginResponseModel.fromJson(jsonDecode(_response.body));
     } else {
-      throw Exception('Failed to create user.');
+      throw Exception("Failed to create user.");
     }
   }
 
 //Get request um Userdaten über Server aus studierenden_db zu ziehen
-  // Future<User> getUserDetails(String token) async {
-  //   var _url = Uri.parse("${_baseUrl}home");
+  Future<bool> getUserContent(String token) async {
+    bool isUserContent = false;
 
-  //   final _response = await http.get(
-  //     _url,
-  //     headers: <String, String>{
-  //       HttpHeaders.contentTypeHeader: "application/json",
-  //       HttpHeaders.authorizationHeader: "Bearer $token",
-  //     },
-  //   );
-  //   print("Token: $token");
-  //   print(_response);
+    var _url = Uri.parse("${_baseUrl}home");
 
-  //   return User.fromJson(jsonDecode(_response.body));
-  // }
+    final _response = await http.get(
+      _url,
+      headers: {
+        // 'Content-Type': 'application/json',
+        // 'Accept': 'application/json',
+        // 'Authorization': 'Bearer $token',
+        // 'Content-Type': 'application/json',
+        // 'Accept': 'application/json',
+        // 'Authorization': 'Basic $token',
+        //HttpHeaders.authorizationHeader: "Basic $token",
+        //HttpHeaders.contentTypeHeader: "application/json",
+        //"Authorization": "Bearer $token",
+        "x-access-token": "$token"
+      },
+    );
+    print("Token: " + token);
+    print("Response: ${_response.body}");
+
+    if (_response.statusCode == 202) {
+      isUserContent = true;
+    } else {
+      throw Exception("Faild to auth token");
+    }
+    return isUserContent;
+  }
 }

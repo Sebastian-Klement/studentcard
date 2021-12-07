@@ -41,97 +41,103 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: Text('Login'),
       ),
-      body: Form(
-        key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            //OhmLogo
-            _logoSection,
-            //Textfield Username
-            Padding(
-              padding: EdgeInsets.only(
-                top: 0.0,
-                right: 25,
-                bottom: 25,
-                left: 25,
-              ),
-              child: TextFormField(
-                controller: _usernameController,
-                decoration: InputDecoration(
-                  labelText: 'Username ',
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              //OhmLogo
+              _logoSection,
+              //Textfield Username
+              Padding(
+                padding: EdgeInsets.only(
+                  top: 0.0,
+                  right: 25,
+                  bottom: 25,
+                  left: 25,
                 ),
-                keyboardType: TextInputType.text,
-                //onSaved: (value) => loginRequestModel.username = value!,
-                validator: (value) =>
-                    (value!.isEmpty) ? "Please enter your username" : null,
-              ),
-            ),
-            //Textfield PW
-            Padding(
-              padding:
-                  EdgeInsets.only(top: 0.0, right: 25, bottom: 15, left: 25),
-              child: TextFormField(
-                keyboardType: TextInputType.text,
-                controller: _passwordController,
-                decoration: InputDecoration(
-                  labelText: 'Password',
+                child: TextFormField(
+                  controller: _usernameController,
+                  decoration: InputDecoration(
+                    labelText: 'Username ',
+                  ),
+                  keyboardType: TextInputType.text,
+                  //onSaved: (value) => loginRequestModel.username = value!,
+                  validator: (value) =>
+                      (value!.isEmpty) ? "Please enter your username" : null,
                 ),
-                obscureText: true,
-                //onSaved: (value) => loginRequestModel.userpassword = value!,
-                validator: (value) =>
-                    (value!.isEmpty) ? "Please enter your password" : null,
               ),
-            ),
-            //Alert PW vergessen
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: TextButton(
-                onPressed: () => showDialog<String>(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: const Text('Congratz'),
-                    content: const Text(
-                        'Please contact your admin or the IT center!'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
-                      ),
-                    ],
+              //Textfield PW
+              Padding(
+                padding:
+                    EdgeInsets.only(top: 0.0, right: 25, bottom: 15, left: 25),
+                child: TextFormField(
+                  keyboardType: TextInputType.text,
+                  controller: _passwordController,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                  ),
+                  obscureText: true,
+                  //onSaved: (value) => loginRequestModel.userpassword = value!,
+                  validator: (value) =>
+                      (value!.isEmpty) ? "Please enter your password" : null,
+                ),
+              ),
+              //Alert PW vergessen
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: TextButton(
+                  onPressed: () => showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text('Congratz'),
+                      content: const Text(
+                          'Please contact your admin or the IT center!'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'OK'),
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    ),
+                  ),
+                  child: Text(
+                    'Forgot Password',
+                    style: TextStyle(color: Colors.blue, fontSize: 15),
                   ),
                 ),
-                child: Text(
-                  'Forgot Password',
-                  style: TextStyle(color: Colors.blue, fontSize: 15),
+              ),
+              //Login button
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    var loginRequestModel = new LoginRequestModel(
+                        _usernameController.text, _passwordController.text);
+                    var api = new Api();
+                    api.loginUser(loginRequestModel).then((value) {
+                      if (value.token.isNotEmpty) {
+                        print("Login successful");
+                        // _setStringValue("token", value.token);
+                        // _setStringValue("username", value.username);
+                        // _setStringValue("firstname", value.firstname);
+                        // _setStringValue("surname", value.surname);
+                        // _setStringValue("birthday", value.birthday);
+                        // _setStringValue("email", value.email);
+                        api.getUserContent(value.token).then((value) {
+                          if (value) {
+                            Navigator.pushNamed(context, '/page');
+                          }
+                        });
+                      }
+                    });
+                  },
+                  child: const Text('Login'),
                 ),
               ),
-            ),
-            //Login button
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: ElevatedButton(
-                onPressed: () async {
-                  var loginRequestModel = new LoginRequestModel(
-                      _usernameController.text, _passwordController.text);
-                  var api = new Api();
-                  api.loginUser(loginRequestModel).then((value) {
-                    if (value.token.isNotEmpty) {
-                      print("Login successful");
-                      // _setStringValue("token", value.token);
-                      // _setStringValue("username", value.username);
-                      // _setStringValue("firstname", value.firstname);
-                      // _setStringValue("surname", value.surname);
-                      // _setStringValue("birthday", value.birthday);
-                      // _setStringValue("email", value.email);
-                      Navigator.pushNamed(context, '/page');
-                    }
-                  });
-                },
-                child: const Text('Login'),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

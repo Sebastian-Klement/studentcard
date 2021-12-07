@@ -23,15 +23,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.13.3
-#  qr_flutter: ^4.0.0
-#  qr: ^2.1.0
+  http: ^0.13.4
+  #  qr_flutter: ^4.0.0
+  #  qr: ^2.1.0
   email_validator: ^2.0.1
   cupertino_icons: ^1.0.2
   shared_preferences: ^2.0.7
   infinity_page_view: ^1.0.0
-  flutter_secure_storage: ^3.3.1+1
   syncfusion_flutter_barcodes: ^19.3.48
+#  flutter_secure_storage: ^3.3.1+1
 
 dev_dependencies:
   flutter_test:
@@ -50,7 +50,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
-
+    # - assets/bear.png
+    # - assets/ohm_logo.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
