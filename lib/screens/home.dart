@@ -29,6 +29,18 @@ class _HomePageState extends State<HomePage> {
     "",
   );
 
+  _getUserInfo() async {
+    Map<String, dynamic> userMap;
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String userStr = prefs.getString('user') ?? "";
+    userMap = jsonDecode(userStr) as Map<String, dynamic>;
+
+    setState(() {
+      user = LoginResponseModel.fromJson(userMap);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -88,6 +100,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
 //Backup falls nötig, kann sonst gelöscht werden
   //_getStringValue() async {
   //   final pref = await SharedPreferences.getInstance();
@@ -101,16 +114,6 @@ class _HomePageState extends State<HomePage> {
   //   print("GetStringValue token: " + token);
   // }
 
+  // kann dann wech :)
   // _getValidation() {}
-  _getUserInfo() async {
-    Map<String, dynamic> userMap;
-
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String userStr = prefs.getString('user') ?? "";
-    userMap = jsonDecode(userStr) as Map<String, dynamic>;
-
-    setState(() {
-      user = LoginResponseModel.fromJson(userMap);
-    });
-  }
 }

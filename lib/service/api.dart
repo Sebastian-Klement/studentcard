@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ohm_card/models/models.dart';
 import 'package:http/http.dart' as http;
@@ -40,16 +42,9 @@ class Api {
     final _response = await http.get(
       _url,
       headers: {
-        // 'Content-Type': 'application/json',
-        // 'Accept': 'application/json',
-        // 'Authorization': 'Bearer $token',
-        // 'Content-Type': 'application/json',
-        // 'Accept': 'application/json',
-        // 'Authorization': 'Basic $token',
-        //HttpHeaders.authorizationHeader: "Basic $token",
-        //HttpHeaders.contentTypeHeader: "application/json",
-        //"Authorization": "Bearer $token",
-        "x-access-token": "$token"
+        HttpHeaders.contentTypeHeader: "application/json",
+        HttpHeaders.authorizationHeader: "Basic $token",
+        //"x-access-token": "$token"
       },
     );
     print("Token: " + token);

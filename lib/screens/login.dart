@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ohm_card/models/models.dart';
 import 'package:ohm_card/service/api.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -12,7 +12,7 @@ class _LoginPageState extends State<LoginPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
 
-  late SharedPreferences pref;
+  //late SharedPreferences pref;
 
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -119,12 +119,6 @@ class _LoginPageState extends State<LoginPage> {
                     api.loginUser(loginRequestModel).then((value) {
                       if (value.token.isNotEmpty) {
                         print("Login successful");
-                        // _setStringValue("token", value.token);
-                        // _setStringValue("username", value.username);
-                        // _setStringValue("firstname", value.firstname);
-                        // _setStringValue("surname", value.surname);
-                        // _setStringValue("birthday", value.birthday);
-                        // _setStringValue("email", value.email);
                         api.getUserContent(value.token).then((value) {
                           if (value) {
                             Navigator.pushNamed(context, '/page');
@@ -142,24 +136,4 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
-  // _setStringValue(String key, String value) async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   prefs.setString(key, value);
-  // }
-
-  // FutureBuilder<User> buildFutureBuilder() {
-  //   return FutureBuilder<User>(
-  //     future: _futureUser,
-  //     builder: (context, snapshot) {
-  //       if (snapshot.hasData) {
-  //         return Text(snapshot.data!.username);
-  //       } else if (snapshot.hasError) {
-  //         return Text('${snapshot.error}');
-  //       }
-  //       return const CircularProgressIndicator();
-  //     },
-  //   );
-  // }
-
 }
