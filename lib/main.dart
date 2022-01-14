@@ -5,6 +5,7 @@ import 'package:ohm_card/screens/login.dart';
 import 'package:ohm_card/screens/home.dart';
 import 'package:ohm_card/screens/mensa.dart';
 import 'package:ohm_card/screens/navigation.dart';
+import 'package:ohm_card/screens/verify.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         '/bibliothek': (context) => BibliothekPage(),
         '/mensa': (context) => MensaPage(),
         '/page': (context) => NavigationBarPage(),
+        '/verify': (context) => VerifyPage(),
       },
     );
   }

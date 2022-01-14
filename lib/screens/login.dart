@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ohm_card/models/models.dart';
 import 'package:ohm_card/service/api.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -11,8 +10,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
-
-  //late SharedPreferences pref;
 
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -39,6 +36,7 @@ class _LoginPageState extends State<LoginPage> {
       key: _scaffoldKey,
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text('Login'),
       ),
       body: SingleChildScrollView(

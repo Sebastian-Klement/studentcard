@@ -44,7 +44,6 @@ class Api {
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
         HttpHeaders.authorizationHeader: "Basic $token",
-        //"x-access-token": "$token"
       },
     );
     print("Token: " + token);

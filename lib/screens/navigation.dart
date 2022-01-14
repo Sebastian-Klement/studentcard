@@ -43,9 +43,7 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
               onTap: () {
                 _handleLogout();
               },
-              child: Icon(
-                Icons.logout,
-              ),
+              child: Icon(Icons.logout),
             ),
           ),
         ],
@@ -56,15 +54,15 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
+            icon: Icon(Icons.food_bank_outlined),
             label: 'Mensa',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.food_bank_outlined),
+            icon: Icon(Icons.book_outlined),
             label: 'Bibliothek',
           ),
         ],
