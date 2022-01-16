@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Image.asset(
-              "assets/images/bear.png",
+              "assets/images/student.png",
               fit: BoxFit.fill,
             ),
             Padding(

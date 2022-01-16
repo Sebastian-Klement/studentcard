@@ -60,10 +60,13 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: InputDecoration(
                     labelText: 'Username ',
                   ),
-                  keyboardType: TextInputType.text,
-                  //onSaved: (value) => loginRequestModel.username = value!,
-                  validator: (value) =>
-                      (value!.isEmpty) ? "Please enter your username" : null,
+                  //keyboardType: TextInputType.text,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your username text';
+                    }
+                    return null;
+                  },
                 ),
               ),
               //Textfield PW
@@ -101,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   child: Text(
-                    'Forgot Password',
+                    'Support',
                     style: TextStyle(color: Colors.blue, fontSize: 15),
                   ),
                 ),

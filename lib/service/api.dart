@@ -56,4 +56,27 @@ class Api {
     }
     return isUserContent;
   }
+
+  Future<Medium> getMedium(String libraryId) async {
+    var _url = Uri.parse("${_baseUrl}allmedium");
+
+    final _response = await http.post(
+      _url,
+      headers: <String, String>{
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: jsonEncode(<String, String>{
+        'libraryId': libraryId,
+      }),
+    );
+
+    if (_response.statusCode == 201 || _response.statusCode == 200) {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString("medium", _response.body);
+
+      return Medium.fromJson(jsonDecode(_response.body));
+    } else {
+      throw Exception("Failed to create user.");
+    }
+  }
 }

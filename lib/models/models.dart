@@ -1,3 +1,5 @@
+import 'package:flutter/scheduler.dart';
+
 class User {
   final String studentId;
   final String username;
@@ -87,4 +89,18 @@ class LoginResponseModel {
         surname = json["surname"],
         birthday = json["birthday"],
         libraryId = json["libraryId"];
+}
+
+class Medium {
+  final int mediumId;
+  final String title;
+  final String author;
+  final String isbn;
+  Medium(this.mediumId, this.title, this.author, this.isbn);
+
+  Medium.fromJson(Map<String, dynamic> json)
+      : mediumId = json['mediumId'],
+        title = json['title'],
+        author = json['author'],
+        isbn = json['isbn'];
 }
