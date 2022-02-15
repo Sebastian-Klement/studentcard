@@ -27,9 +27,10 @@ class _HomePageState extends State<HomePage> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String userStr = prefs.getString('user') ?? "";
     userMap = jsonDecode(userStr) as Map<String, dynamic>;
-
     setState(() {
       user = LoginResponseModel.fromJson(userMap);
+      final String token = user.token;
+      prefs.setString('token', "$token");
     });
   }
 
@@ -67,9 +68,8 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   Text("Name: " + user.firstname + " " + user.surname),
                   Text("Birthday: " + user.birthday),
-                  Text("StudentId: " + user.studentId.toString()),
-                  Text("Gültig von 01.10.2021 bis 14.03.2022"),
-                  //Text("Token: " + user.token)
+                  Text("Student-ID: " + user.studentId.toString()),
+                  Text("Valid: 01.10.2021 until 14.03.2022"),
                 ],
               ),
             ),

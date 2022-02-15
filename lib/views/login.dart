@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ohm_card/models/models.dart';
-import 'package:ohm_card/service/api.dart';
+import 'package:ohm_card/controller/api.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -49,12 +49,8 @@ class _LoginPageState extends State<LoginPage> {
               _logoSection,
               //Textfield Username
               Padding(
-                padding: EdgeInsets.only(
-                  top: 0.0,
-                  right: 25,
-                  bottom: 25,
-                  left: 25,
-                ),
+                padding:
+                    EdgeInsets.only(top: 0.0, right: 25, bottom: 25, left: 25),
                 child: TextFormField(
                   controller: _usernameController,
                   decoration: InputDecoration(
@@ -62,8 +58,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   //keyboardType: TextInputType.text,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your username text';
+                    if (value == null || value.isEmpty || value.length < 3) {
+                      return 'Please enter your username';
                     }
                     return null;
                   },
@@ -81,8 +77,12 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   obscureText: true,
                   //onSaved: (value) => loginRequestModel.userpassword = value!,
-                  validator: (value) =>
-                      (value!.isEmpty) ? "Please enter your password" : null,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter your password";
+                    }
+                    return null;
+                  },
                 ),
               ),
               //Alert PW vergessen
@@ -117,16 +117,18 @@ class _LoginPageState extends State<LoginPage> {
                     var loginRequestModel = new LoginRequestModel(
                         _usernameController.text, _passwordController.text);
                     var api = new Api();
-                    api.loginUser(loginRequestModel).then((value) {
-                      if (value.token.isNotEmpty) {
-                        print("Login successful");
-                        api.getUserContent(value.token).then((value) {
-                          if (value) {
-                            Navigator.pushNamed(context, '/page');
-                          }
-                        });
-                      }
-                    });
+                    if (_formKey.currentState!.validate()) {
+                      api.loginUser(loginRequestModel).then((value) {
+                        if (value.token.isNotEmpty) {
+                          print("Login successful");
+                          api.getUserContent(value.token).then((value) {
+                            if (value) {
+                              Navigator.pushNamed(context, '/page');
+                            }
+                          });
+                        }
+                      });
+                    }
                   },
                   child: const Text('Login'),
                 ),

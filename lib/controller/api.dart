@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class Api {
-  final String _baseUrl = "http://192.168.178.21:3000/";
+  final String _baseUrl = "http://141.75.225.18:3000/";
   Future<LoginResponseModel> loginUser(
       LoginRequestModel loginResponseModel) async {
     var _url = Uri.parse("${_baseUrl}login");

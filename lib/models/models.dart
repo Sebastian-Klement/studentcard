@@ -1,5 +1,3 @@
-import 'package:flutter/scheduler.dart';
-
 class User {
   final String studentId;
   final String username;
@@ -9,7 +7,7 @@ class User {
   final String surname;
   final String birthday;
   final String libraryId;
-//  final String error;
+
   User(
     this.studentId,
     this.username,
@@ -19,10 +17,8 @@ class User {
     this.surname,
     this.birthday,
     this.libraryId,
-    // this.error,
   );
-//studentId":1111111,"username":"test12345","userpassword":"123","accesstoken":"123456789","email":"test@mordor.al",
-//"firstname":"vtest","surname":"ntest","birthday":"2980-04-06","libraryId":"11111111111"
+
   User.fromJson(Map<String, dynamic> json)
       : studentId = json["studentId"],
         username = json["username"],
@@ -32,8 +28,6 @@ class User {
         surname = json["surname"],
         birthday = json["birthday"],
         libraryId = json["libraryId"];
-  //error: json["error"],
-
 }
 
 class LoginRequestModel {
@@ -65,7 +59,6 @@ class LoginResponseModel {
   final String surname;
   final String birthday;
   final String libraryId;
-  //late String error;
 
   LoginResponseModel(
     this.studentId,
@@ -75,11 +68,9 @@ class LoginResponseModel {
     this.surname,
     this.birthday,
     this.libraryId,
-    //required this.error,
     this.token,
   );
-//studentId":1111111,"username":"test12345","userpassword":"123","accesstoken":"123456789","email":"test@mordor.al",
-//"firstname":"vtest","surname":"ntest","birthday":"2980-04-06","libraryId":"11111111111"
+
   LoginResponseModel.fromJson(Map<String, dynamic> json)
       : studentId = json["studentId"],
         username = json["username"],
@@ -92,15 +83,25 @@ class LoginResponseModel {
 }
 
 class Medium {
-  final int mediumId;
-  final String title;
-  final String author;
-  final String isbn;
-  Medium(this.mediumId, this.title, this.author, this.isbn);
+  int? mediumId;
+  String? title;
+  String? author;
+  String? isbn;
+  String? timeStamp;
+  Medium({this.mediumId, this.title, this.author, this.isbn, this.timeStamp});
 
-  Medium.fromJson(Map<String, dynamic> json)
-      : mediumId = json['mediumId'],
-        title = json['title'],
-        author = json['author'],
-        isbn = json['isbn'];
+  factory Medium.fromJson(Map<String, dynamic> json) => Medium(
+      mediumId: json['mediumId'],
+      title: json['title'],
+      author: json['author'],
+      isbn: json['isbn'],
+      timeStamp: json['timeStamp']);
+
+  Map<String, dynamic> toJson() => {
+        'mediumId': mediumId,
+        'title': title,
+        'author': author,
+        'isbn': isbn,
+        'timeStamp': timeStamp
+      };
 }

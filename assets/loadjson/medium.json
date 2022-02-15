@@ -1,0 +1,17 @@
+[
+    {
+        "title": "buch1",
+        "autor": "schreiber1",
+        "isbn": "11111"
+    },
+    {
+        "title": "buch2",
+        "autor": "schreiber2",
+        "isbn": "22222"
+    },
+    {
+        "title": "buch3",
+        "autor": "schreiber3",
+        "isbn": "33333"
+    }
+]
