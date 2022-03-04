@@ -74,7 +74,7 @@ class VerifyPageState extends State<VerifyPage> {
               padding: EdgeInsets.all(30.0),
               child: Container(
                 child: Text(
-                    "Please scan this qr-code\nto validate this student card."),
+                    "Please scan this QR code\nto validate this student card."),
               ),
             ),
             Padding(

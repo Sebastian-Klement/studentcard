@@ -28,76 +28,64 @@ class BibliothekPageState extends State<BibliothekPage> {
 
   final List jsonList = [
     {
-      "title": "Ein Buchtitel eben",
-      "author": "Autor Schreiber",
-      "isbn": "123-4-8523-5236-4",
-      "timeStamp": "28.02.2022"
+      "title": "RFID and contactless smart card applications",
+      "author": "Paret, Dominique",
+      "isbn": "0470016159",
+      "timeStamp": "2022-12-04"
     },
     {
-      "title": "Ein 2ter Buchtitel eben",
-      "author": "Autor Schreiber",
+      "title": "Brainstorming, Brainstorming Rules and Decision Making",
+      "author": "PUTMAN, VICKY L.; PAULUS, PAUL B.",
       "isbn": "123-4-8523-5236-4",
-      "timeStamp": "28.02.2022"
+      "timeStamp": "2022-12-04"
     },
     {
-      "title": "Ein 3ter Buchtitel eben",
-      "author": "Autor Schreiber",
-      "isbn": "123-4-8523-5236-4",
-      "timeStamp": "28.02.2022"
+      "title": "RFID-Handbuch",
+      "author": "Finkenzeller, Klaus",
+      "isbn": "9783827321992",
+      "timeStamp": "2022-07-14"
     },
     {
-      "title": "Ein 4ter Buchtitel eben",
-      "author": "Autor Schreiber",
-      "isbn": "123-4-8523-5236-4",
-      "timeStamp": "28.02.2022"
+      "title": "Mobile Payment",
+      "author": "Hierl, Ludwig",
+      "isbn": "978-3-658-14117-2",
+      "timeStamp": "2022-07-14"
     },
     {
-      "title": "Ein 5ter Buchtitel eben",
-      "author": "Autor Schreiber",
-      "isbn": "123-4-8523-5236-4",
-      "timeStamp": "28.02.2022"
+      "title": "Strichcode-Praxis",
+      "author": "Lenk, Bernhard",
+      "isbn": "3935551029",
+      "timeStamp": "2022-07-14"
     },
     {
       "title": "Ein 6ter Buchtitel eben",
       "author": "Autor Schreiber",
       "isbn": "123-4-8523-5236-4",
-      "timeStamp": "28.02.2022"
+      "timeStamp": "2022-07-14"
     },
     {
       "title": "Ein 7ter Buchtitel eben",
       "author": "Autor Schreiber",
       "isbn": "123-4-8523-5236-4",
-      "timeStamp": "28.02.2022"
+      "timeStamp": "2022-07-14"
     },
     {
       "title": "Ein 8ter Buchtitel eben",
       "author": "Autor Schreiber",
       "isbn": "123-4-8523-5236-4",
-      "timeStamp": "28.02.2022"
+      "timeStamp": "2022-08-24"
     },
     {
       "title": "Ein 9ter Buchtitel eben",
       "author": "Autor Schreiber",
       "isbn": "123-4-8523-5236-4",
-      "timeStamp": "28.02.2022"
+      "timeStamp": "2022-08-24"
     },
     {
       "title": "Ein 10ter Buchtitel eben",
       "author": "Autor Schreiber",
       "isbn": "123-4-8523-5236-4",
-      "timeStamp": "28.02.2022"
-    },
-    {
-      "title": "Ein 11ter Buchtitel eben",
-      "author": "Autor Schreiber",
-      "isbn": "123-4-8523-5236-4",
-      "timeStamp": "28.02.2022"
-    },
-    {
-      "title": "Ein 12ter Buchtitel eben",
-      "author": "Autor Schreiber",
-      "isbn": "123-4-8523-5236-4",
-      "timeStamp": "28.02.2022"
+      "timeStamp": "2022-08-24"
     }
   ];
 
@@ -120,6 +108,7 @@ class BibliothekPageState extends State<BibliothekPage> {
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
               background: (SfBarcodeGenerator(
+                // value:'${_libraryId}',
                 value: '05601205784',
                 symbology: Code128(),
                 showValue: true,
@@ -136,17 +125,20 @@ class BibliothekPageState extends State<BibliothekPage> {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              (context, index) => ListTile(
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                    color: Colors.blue.shade300,
+              (context, index) => Padding(
+                padding: EdgeInsets.all(10.0),
+                child: ListTile(
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                      color: Colors.blueGrey.shade300,
+                    ),
+                    borderRadius: BorderRadius.circular(15.0),
                   ),
-                  borderRadius: BorderRadius.circular(15.0),
+                  title: Text(jsonList[index]["title"]),
+                  subtitle: Text(
+                      "${jsonList[index]["author"]}\n${jsonList[index]["isbn"]}"),
+                  trailing: Text(jsonList[index]["timeStamp"]),
                 ),
-                title: Text(jsonList[index]["title"]),
-                subtitle: Text(
-                    "${jsonList[index]["author"]}\n${jsonList[index]["isbn"]}"),
-                trailing: Text(jsonList[index]["timeStamp"]),
               ),
               childCount: 10,
             ),

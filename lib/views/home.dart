@@ -10,16 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  LoginResponseModel user = new LoginResponseModel(
-    0,
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-  );
+  LoginResponseModel? user;
 
   _getUserInfo() async {
     Map<String, dynamic> userMap;
@@ -29,7 +20,7 @@ class _HomePageState extends State<HomePage> {
     userMap = jsonDecode(userStr) as Map<String, dynamic>;
     setState(() {
       user = LoginResponseModel.fromJson(userMap);
-      final String token = user.token;
+      final String token = user!.token;
       prefs.setString('token', "$token");
     });
   }
@@ -56,20 +47,33 @@ class _HomePageState extends State<HomePage> {
                 fit: BoxFit.fill,
               ),
             ),
-            Image.asset(
-              "assets/images/student.png",
-              fit: BoxFit.fill,
+            Padding(
+              padding: EdgeInsets.only(
+                left: 75.0,
+                top: 10.0,
+                right: 75.0,
+                bottom: 10.0,
+              ),
+              child: Image.asset(
+                "assets/images/student.jpg",
+                fit: BoxFit.fill,
+              ),
             ),
             Padding(
-              padding: EdgeInsets.all(30.0),
+              padding: EdgeInsets.only(
+                left: 30.0,
+                top: 10.0,
+                right: 30.0,
+                bottom: 30.0,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text("Name: " + user.firstname + " " + user.surname),
-                  Text("Birthday: " + user.birthday),
-                  Text("Student-ID: " + user.studentId.toString()),
-                  Text("Valid: 01.10.2021 until 14.03.2022"),
+                  Text("Name: " + user!.firstname + " " + user!.surname),
+                  Text("Birthday: " + user!.birthday),
+                  Text("Student-ID: " + user!.studentId.toString()),
+                  Text("Valid: 2021.10.01 until 2022.03.14"),
                 ],
               ),
             ),

@@ -59,11 +59,11 @@ class _NavigationBarPageState extends State<NavigationBarPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.food_bank_outlined),
-            label: 'Mensa',
+            label: 'Canteen',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.book_outlined),
-            label: 'Bibliothek',
+            label: 'Library',
           ),
         ],
         currentIndex: _selectedIndex,

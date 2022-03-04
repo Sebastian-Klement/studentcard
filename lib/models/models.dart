@@ -31,8 +31,8 @@ class User {
 }
 
 class LoginRequestModel {
-  late String username;
-  late String userpassword;
+  String? username;
+  String? userpassword;
 
   LoginRequestModel(
     String username,
@@ -54,7 +54,7 @@ class LoginResponseModel {
   final int studentId;
   final String username;
   final String token;
-  final String email;
+  final double credit;
   final String firstname;
   final String surname;
   final String birthday;
@@ -63,7 +63,7 @@ class LoginResponseModel {
   LoginResponseModel(
     this.studentId,
     this.username,
-    this.email,
+    this.credit,
     this.firstname,
     this.surname,
     this.birthday,
@@ -75,7 +75,7 @@ class LoginResponseModel {
       : studentId = json["studentId"],
         username = json["username"],
         token = json["token"],
-        email = json["email"],
+        credit = json["credit"],
         firstname = json["firstname"],
         surname = json["surname"],
         birthday = json["birthday"],

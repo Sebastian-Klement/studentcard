@@ -18,7 +18,9 @@ class MensaPageState extends State<MensaPage> {
         child: FutureBuilder<bool>(
           future: NfcManager.instance.isAvailable(),
           builder: (context, ss) => ss.data != true
-              ? Center(child: Text('NfcManager.isAvailable(): ${ss.data}'))
+              ? Center(
+                  child: Text(
+                      'Status: NFC is not available! \n            credit: 8,15 €'))
               : Flex(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   direction: Axis.vertical,

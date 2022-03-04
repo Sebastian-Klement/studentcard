@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class Api {
-  final String _baseUrl = "http://141.75.225.18:3000/";
+  final String _baseUrl = "http://192.168.178.21:3000/";
   Future<LoginResponseModel> loginUser(
       LoginRequestModel loginResponseModel) async {
     var _url = Uri.parse("${_baseUrl}login");
@@ -33,7 +33,7 @@ class Api {
     }
   }
 
-//Get request um Userdaten über Server aus studierenden_db zu ziehen
+  //Get request um Userdaten über Server aus studierenden_db zu ziehen
   Future<bool> getUserContent(String token) async {
     bool isUserContent = false;
 
@@ -57,7 +57,7 @@ class Api {
     return isUserContent;
   }
 
-  Future<Medium> getMedium(String libraryId) async {
+  Future<Medium> getMedium(String studentId) async {
     var _url = Uri.parse("${_baseUrl}allmedium");
 
     final _response = await http.post(
@@ -66,13 +66,13 @@ class Api {
         "Access-Control-Allow-Origin": "*",
       },
       body: jsonEncode(<String, String>{
-        'libraryId': libraryId,
+        'studentId': studentId,
       }),
     );
 
     if (_response.statusCode == 201 || _response.statusCode == 200) {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString("medium", _response.body);
+      await prefs.setString("mediumList", _response.body);
 
       return Medium.fromJson(jsonDecode(_response.body));
     } else {

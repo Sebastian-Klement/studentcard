@@ -14,6 +14,17 @@ class _LoginPageState extends State<LoginPage> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  bool validateUserInput(var value) {
+    final regex = RegExp(r'^[a-zA-Z][a-zA-Z]+[0-9]{5}$');
+
+    final match = regex.firstMatch(value);
+    if (match != null) {
+      print('$value is a correct input');
+      return true;
+    }
+    return false;
+  }
+
   @override
   void dispose() {
     _usernameController.dispose();
@@ -56,9 +67,11 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: InputDecoration(
                     labelText: 'Username ',
                   ),
-                  //keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.text,
                   validator: (value) {
-                    if (value == null || value.isEmpty || value.length < 3) {
+                    if (value == null ||
+                        value.isEmpty ||
+                        !validateUserInput(value)) {
                       return 'Please enter your username';
                     }
                     return null;
@@ -70,13 +83,12 @@ class _LoginPageState extends State<LoginPage> {
                 padding:
                     EdgeInsets.only(top: 0.0, right: 25, bottom: 15, left: 25),
                 child: TextFormField(
-                  keyboardType: TextInputType.text,
+                  //keyboardType: TextInputType.text,
                   controller: _passwordController,
                   decoration: InputDecoration(
                     labelText: 'Password',
                   ),
                   obscureText: true,
-                  //onSaved: (value) => loginRequestModel.userpassword = value!,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please enter your password";
@@ -92,9 +104,9 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () => showDialog<String>(
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
-                      title: const Text('Congratz'),
-                      content: const Text(
-                          'Please contact your admin or the IT center!'),
+                      title: const Text('Servicecenter'),
+                      content:
+                          const Text('Please contact your admin or IT center!'),
                       actions: <Widget>[
                         TextButton(
                           onPressed: () => Navigator.pop(context, 'OK'),
